@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { getInvoices, getInvoiceStats } from "../api/invoiceapi";
-import "../styles/invoiceStyles.css";
+import "../styles/invoicestyles.css";
 
 import InvoiceStats from "../components/invoice/InvoiceStats.jsx";
 import InvoiceTable from "../components/invoice/InvoiceTable.jsx";
