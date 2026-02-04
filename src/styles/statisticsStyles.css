@@ -1,0 +1,196 @@
+.statistics-container {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+}
+
+.statistics-header {
+  margin-bottom: 16px;
+}
+
+.statistics-header h4 {
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+/* KPI ROW */
+.statistics-kpi-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 20px 0;
+}
+
+/* KPI CARD */
+.statistics-kpi-card {
+  border-radius: 12px;
+  padding: 20px;
+  color: #111827;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.statistics-kpi-card h3 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.statistics-kpi-card.yellow {
+  background: #fad85d;
+}
+
+.statistics-kpi-card.green {
+  background: #0bf4c8;
+}
+
+.statistics-kpi-card.purple {
+  background: #f2a0ff;
+}
+
+.kpi-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.kpi-trend {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.kpi-trend.up {
+  color: #16a34a;
+}
+
+/*  GRAPH + TOP PRODUCTS ROW */
+.statistics-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.statistics-col {
+  display: flex;
+}
+
+.graph-col {
+  flex: 0 0 70%;
+}
+
+.top-products-col {
+  flex: 0 0 30%;
+}
+
+/* Make cards stretch equally */
+.statistics-col .card {
+  width: 100%;
+  height: 100%;
+}
+
+.statistics-kpi-card {
+  cursor: grab;
+  user-select: none;
+}
+
+.statistics-kpi-card:active {
+  cursor: grabbing;
+  opacity: 0.8;
+}
+
+/*  RESPONSIVE */
+@media (max-width: 768px) {
+  .statistics-container {
+    width: 100%;
+    padding: 0 12px 120px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .statistics-row {
+    order: 1;
+  }
+
+  .statistics-kpi-row {
+    order: 2;
+  }
+
+  .statistics-row {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .graph-col {
+    order: 1; /* GRAPH FIRST */
+    width: 100%;
+  }
+
+  .top-products-col {
+    display: none;
+  }
+
+  .statistics-kpi-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 16px 0;
+  }
+
+  .statistics-kpi-card {
+    padding: 12px;
+  }
+
+  .statistics-kpi-card h3 {
+    font-size: 16px;
+  }
+
+  .kpi-title {
+    font-size: 11px;
+  }
+
+  .kpi-trend {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .statistics-kpi-card {
+    padding: 10px;
+  }
+
+  .statistics-kpi-card h3 {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 869px) {
+  .statistics-kpi-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .statistics-row {
+    flex-direction: column;
+  }
+
+  .graph-col,
+  .top-products-col {
+    flex: 1 1 100%;
+  }
+}
+
+@media (min-width: 869px) and (max-width: 1024px) {
+  .statistics-kpi-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .statistics-row {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1400px) {
+  .statistics-container {
+    max-width: 1400px;
+  }
+}

@@ -1,0 +1,272 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family:
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  background-color: #1f2430;
+  color: #111;
+}
+
+/* Remove default input outline */
+input,
+button,
+textarea {
+  outline: none;
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2a2f3c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+/* Utility */
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-text {
+  color: #dc2626;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.success-text {
+  color: #16a34a;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+input:focus {
+  border-color: #2563eb;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.app-layout {
+  display: flex;
+  height: 100vh;
+  background: #424457;
+}
+
+.sidebar {
+  width: 250px;
+  background: #1f2430;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.sidebar-logo img {
+  width: 42px;
+}
+
+.sidebar-divider-top {
+  height: 1px;
+  background: #374151;
+  margin: 20px 0;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.sidebar-nav a img {
+  width: 18px;
+}
+
+.sidebar-nav a:hover {
+  background: #2a3040;
+}
+
+.sidebar-nav a.active {
+  background: #2f3548;
+  color: white;
+  font-weight: 600;
+}
+
+.sidebar-user {
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.sidebar-divider-bottom {
+  height: 1px;
+  background: #374151;
+  margin: 15px 0;
+}
+.sidebar-user p {
+  font-size: 14px;
+  color: #e5e7eb;
+}
+
+/* Content area */
+.app-content {
+  flex: 1;
+  padding: 25px 10px 25px 25px;
+  overflow-y: scroll;
+}
+
+/* MOBILE BOTTOM NAV LAYOUT */
+@media (max-width: 768px) {
+  /* Layout stack */
+  .app-layout {
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  /* CONTENT */
+  .app-content {
+    padding: 70px 16px 90px 16px;
+    overflow-y: auto;
+    margin-bottom: 76px;
+  }
+
+  /* SIDEBAR → BOTTOM BAR */
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    border-radius: 25px 25px 0px 0px;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 12px;
+    z-index: 1000;
+  }
+
+  /* REMOVE DESKTOP ELEMENTS */
+  .sidebar-divider-top,
+  .sidebar-divider-bottom,
+  .sidebar-user {
+    display: none;
+  }
+
+  /* NAV */
+  .sidebar-nav {
+    flex-direction: row;
+    gap: 0;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  /* NAV ITEMS – ICON ONLY */
+  .sidebar-nav a {
+    flex-direction: column;
+    padding: 8px;
+    font-size: 0;
+  }
+
+  .sidebar-nav a img {
+    width: 22px;
+  }
+
+  /* HIDE SETTINGS FROM BOTTOM BAR */
+  .sidebar-nav a[href="/settings"] {
+    display: none;
+  }
+
+  /* LOGO → TOP LEFT */
+  .sidebar-logo {
+    position: fixed;
+    top: 14px;
+    left: 16px;
+    z-index: 1100;
+  }
+
+  .sidebar-logo img {
+    width: 36px;
+  }
+
+  /* SETTINGS → TOP RIGHT */
+  .sidebar-nav a[href="/settings"] {
+    display: flex;
+    position: fixed;
+    top: 14px;
+    right: 16px;
+    padding: 6px;
+    z-index: 1100;
+    background: transparent;
+  }
+
+  .sidebar-nav a[href="/settings"] img {
+    width: 22px;
+  }
+
+  .sidebar-nav a.active {
+    border-radius: 20%;
+  }
+
+  .sidebar-nav a.active img {
+    filter: brightness(1.8);
+  }
+}

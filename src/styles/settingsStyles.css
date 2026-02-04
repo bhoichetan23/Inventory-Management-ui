@@ -1,0 +1,205 @@
+.settings-container {
+  width: 100%;
+}
+
+.settings-header {
+  margin-bottom: 16px;
+}
+
+.settings-header h4 {
+  font-size: 20px;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.settings-card {
+  max-width: 80vw;
+}
+
+.settings-card h3 {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.settings-form hr {
+  background-color: #d1d5db;
+  margin-bottom: 0px;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settings-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.settings-field label {
+  font-size: 13px;
+  color: #374151;
+}
+
+.settings-field input {
+  padding: 8px 10px;
+  width: 50%;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 13px;
+}
+
+.settings-field input:disabled {
+  background: #f1f5f9;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+.settings-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.password-field {
+  position: relative;
+  width: 50%;
+}
+
+.password-input-wrapper {
+  position: relative;
+}
+
+.password-input-wrapper input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.password-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 15px;
+  cursor: pointer;
+  transform: translateY(-50%);
+  opacity: 0.7;
+}
+
+.password-eye:hover {
+  opacity: 1;
+}
+
+.password-rules {
+  margin-top: 8px;
+  font-size: 12px;
+  padding-left: 16px;
+  color: #9ca3af;
+}
+
+.password-rules li.valid {
+  color: #22c55e;
+}
+
+.save-btn {
+  padding: 8px 14px;
+  background: #242531;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ---------- LARGE DESKTOP ---------- */
+@media (min-width: 1400px) {
+  .settings-card {
+    max-width: 900px;
+  }
+}
+
+/* ---------- TABLET ---------- */
+@media (max-width: 1024px) {
+  .settings-card {
+    max-width: 100%;
+  }
+
+  .settings-field input {
+    width: 80%;
+  }
+
+  .password-field {
+    width: 100%;
+  }
+}
+
+@media (max-width: 869px) {
+  .settings-container {
+    padding: 0 16px;
+  }
+
+  .settings-card {
+    max-width: 100%;
+  }
+
+  .settings-field input {
+    width: 80%;
+  }
+
+  .password-field {
+    width: 100%;
+  }
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 768px) {
+  .settings-card {
+    max-width: 100%;
+    padding: 12px;
+  }
+
+  .settings-form {
+    gap: 14px;
+  }
+
+  .settings-field input {
+    font-size: 14px;
+  }
+
+  .password-field {
+    width: 100%;
+  }
+
+  .password-rules {
+    font-size: 11px;
+  }
+
+  .settings-actions {
+    justify-content: center;
+  }
+
+  .settings-actions .primary-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings-card {
+    margin-right: -10px;
+  }
+
+  .settings-card h3 {
+    font-size: 14px;
+  }
+
+  .settings-field input {
+    width: 100%;
+  }
+  .settings-field label {
+    font-size: 12px;
+  }
+
+  .password-eye {
+    width: 14px;
+    right: 8px;
+  }
+}
