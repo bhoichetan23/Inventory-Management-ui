@@ -30,7 +30,7 @@ const Login = () => {
       });
 
       login(res.data);
-      navigate("/");
+      navigate("/dashboard", { replace: true });
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     } finally {
