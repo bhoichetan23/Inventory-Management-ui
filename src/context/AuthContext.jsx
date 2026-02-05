@@ -8,29 +8,26 @@ import {
 
 export const AuthContext = createContext(null);
 
-const getInitialUser = () => {
-  try {
-    const storedUser = localStorage.getItem("user");
-    const token = localStorage.getItem("accessToken");
-    return storedUser && token ? JSON.parse(storedUser) : null;
-  } catch {
-    return null;
-  }
-};
-
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(getInitialUser);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const restoreSession = useCallback(() => {
-    const restoredUser = getInitialUser();
-    setUser(restoredUser);
-    setLoading(false);
-  }, []);
-
   useEffect(() => {
-    restoreSession();
-  }, [restoreSession]);
+    try {
+      const storedUser = localStorage.getItem("user");
+      const token = localStorage.getItem("accessToken");
+
+      if (storedUser && token) {
+        setUser(JSON.parse(storedUser));
+      } else {
+        setUser(null);
+      }
+    } catch {
+      setUser(null);
+    } finally {
+      setLoading(false); // 🔥 THIS IS CRITICAL
+    }
+  }, []);
 
   const login = useCallback((data) => {
     localStorage.setItem("accessToken", data.accessToken);
@@ -39,37 +36,24 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const logout = useCallback(() => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
+    localStorage.clear();
     setUser(null);
-  }, []);
-
-  const updateUser = useCallback((updatedFields) => {
-    setUser((prev) => {
-      if (!prev) return prev;
-
-      const updatedUser = { ...prev, ...updatedFields };
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-      return updatedUser;
-    });
   }, []);
 
   return (
     <AuthContext.Provider
       value={{
         user,
-        isAuthenticated: !!user,
         loading,
+        isAuthenticated: !!user,
         login,
         logout,
-        updateUser,
       }}
     >
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 };
 
 export const useAuth = () => useContext(AuthContext);
-
 export default AuthProvider;
