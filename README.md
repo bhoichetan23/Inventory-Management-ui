@@ -15,4 +15,21 @@ The React Compiler is not enabled on this template because of its impact on dev 
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
-# Added sample csv file in public folder
+## Added sample csv file in public folder
+
+### Authentication Note
+
+This application uses JWT-based authentication with access tokens stored in
+localStorage and refresh tokens stored in secure HTTP-only cookies.
+
+If you face any login issues (such as being redirected unexpectedly or seeing
+authentication errors), please clear the browser's local storage and cookies
+before logging in.
+
+Steps:
+
+1. Open Developer Tools (Right Click → Inspect)
+2. Go to Application tab
+3. Clear Local Storage
+4. Clear Cookies
+5. Refresh the page and log in again
