@@ -15,7 +15,7 @@ const AuthLayout = ({ title, subtitle, image, showBrand = true, children }) => {
           <>
             <img src={logo} className="auth-logo" alt="logo" />
             <h1>
-              Welcome to <br /> Company Name
+              Welcome to <br /> Invento
             </h1>
           </>
         )}
