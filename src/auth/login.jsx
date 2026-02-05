@@ -1,81 +1,103 @@
-import {
-  createContext,
-  useState,
-  useEffect,
-  useContext,
-  useCallback,
-} from "react";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../api/axios";
+import { AuthContext } from "../context/AuthContext";
+import AuthLayout from "../components/AuthHome";
+import illustration from "../assets/hero.png";
+import openeye from "../assets/openeye.png";
+import closeeye from "../assets/closeeye.png";
 
-export const AuthContext = createContext(null);
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-const getInitialUser = () => {
-  try {
-    const storedUser = localStorage.getItem("user");
-    const token = localStorage.getItem("accessToken");
-    // दोनों चीजें होनी चाहिए
-    return storedUser && token ? JSON.parse(storedUser) : null;
-  } catch {
-    return null;
-  }
-};
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
 
-  useEffect(() => {
-    const initAuth = () => {
-      const restoredUser = getInitialUser();
-      setUser(restoredUser);
+    try {
+      setLoading(true);
+
+      const res = await api.post("/auth/login", {
+        email,
+        password,
+      });
+
+      login(res.data);
+      navigate("/");
+    } catch (err) {
+      setError(err.response?.data?.message || "Login failed");
+    } finally {
       setLoading(false);
-    };
-    initAuth();
-  }, []);
-
-  const login = useCallback((data) => {
-    localStorage.setItem("accessToken", data.accessToken);
-    localStorage.setItem("user", JSON.stringify(data.user));
-    setUser(data.user);
-  }, []);
-
-  const logout = useCallback(() => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
-    setUser(null);
-  }, []);
-
-  const updateUser = useCallback((updatedFields) => {
-    setUser((prev) => {
-      if (!prev) return prev;
-
-      const updatedUser = { ...prev, ...updatedFields };
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-      return updatedUser;
-    });
-  }, []);
+    }
+  };
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isAuthenticated: !!user,
-        loading,
-        login,
-        logout,
-        updateUser,
-      }}
+    <AuthLayout
+      title="Log in to your account"
+      subtitle="Welcome back! Please enter your details."
+      image={illustration}
+      showBrand={true}
     >
-      {children}
-    </AuthContext.Provider>
+      {error && <div className="auth-error">{error}</div>}
+
+      <form onSubmit={handleSubmit}>
+        <label>Email</label>
+        <input
+          type="email"
+          placeholder="example@email.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+
+        <label>Password</label>
+        <div style={{ position: "relative" }}>
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="At least 8 characters"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <img
+            src={showPassword ? closeeye : openeye}
+            alt="toggle password"
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: "absolute",
+              right: "12px",
+              top: "35%",
+              transform: "translateY(-50%)",
+              width: "15px",
+              cursor: "pointer",
+              opacity: 1,
+            }}
+          />
+        </div>
+
+        <div className="auth-forgot">
+          <Link to="/forgot-password">Forgot Password?</Link>
+        </div>
+
+        <button disabled={loading}>
+          {loading ? "Signing in..." : "Sign in"}
+        </button>
+      </form>
+
+      <div className="auth-bottom-link">
+        Don't you have an account?
+        <Link to="/signup">Sign up</Link>
+      </div>
+    </AuthLayout>
   );
 };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within AuthProvider");
-  }
-  return context;
-};
-
-export default AuthProvider;
+export default Login;
